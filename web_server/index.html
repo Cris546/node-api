@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<script src="js/listeners.js"></script>
+<link href="css/mystyle.css" rel="stylesheet" type="text/css">
+<head>
+    <title>My Website</title>
+</head>
+
+<body>
+    <div class="center">
+        <h1>Hello Again!</h1>
+        <p>This is served from a file</p>
+        
+        <label for="bookName">Book name: </label>
+        <input type="text" id="bookName" name="bookName">
+        <label for="bookRelease">Book release: </label>
+        <input type="text" id="bookRelease" name="bookRelease">
+        <button onclick="getInfo()">GET</button>
+        <button onclick="postBook()">POST</button>
+        <button onclick="updateBook()">PUT</button>
+        <button onclick="removeBook()">DELETE</button>
+
+    </div>
+
+    <div id="book"></div>
+    <div id="overlay"></div>
+</body>
+</html>
