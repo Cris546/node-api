@@ -18,8 +18,9 @@ app.get("/", (req, res) => {
 });
 
 app.get("/books", (req, res) => {
+    
     db.query('SELECT * FROM book', (err, rows, fields) => {
-        if(err) throw err;
+        if(err) res.status(500).send({ error: true, message: 'MySQL currently unaccessable'});
 
         res.send(rows);
     })
