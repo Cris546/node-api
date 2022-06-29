@@ -9,7 +9,17 @@ var pool = mysql.createPool({
 })
 
 
+// pool.on('acquire', function(connection) {
+//     console.log('Connection %d acquired', connection.threadID);
+// });
 
+// pool.on('connection', function(connection){
+//     console.log('Connection %d being used', connection.threadID);
+// })
+
+// pool.on('error', err => {
+//     console.log("Error has been detected in pool: " + err.message);
+// });
 
 module.exports = pool;
 

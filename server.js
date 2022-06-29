@@ -1,6 +1,7 @@
 const express = require('express')
 const db = require('./services/db')
 const cors = require('cors');
+const e = require('express');
 const app = express();
 app.use(express.json());
 app.use(
@@ -20,7 +21,7 @@ app.get("/", (req, res) => {
 app.get("/books", (req, res) => {
     
     db.query('SELECT * FROM book', (err, rows, fields) => {
-        if(err) res.status(500).send({ error: true, message: 'MySQL currently unaccessable'});
+        if(err) res.status(500).send({ error: true, message: err.code});
 
         res.send(rows);
     })
@@ -28,9 +29,22 @@ app.get("/books", (req, res) => {
 
 app.get('/books/:id', (req, res) => {
     db.query('SELECT * FROM book WHERE name = ?', [req.params.id], (err, rows, fields) => {
-        if(err) throw err;
         
-        res.send(rows);
+        if(err){
+            // console.log("error found")
+            res.status(500).send({error: true, message: err.code})
+        } 
+
+        
+        if(!rows.length){
+            res.status(404).send({error: true, message: "Book name not found"});
+        }
+        else{
+            res.send(rows);
+        }
+
+
+        
     });
 })
 
@@ -84,5 +98,7 @@ app.delete('/books/:id', function (req, res){
 })
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log('Listening on port: ' + port + '...'));
+
+
 
 module.exports = app;
